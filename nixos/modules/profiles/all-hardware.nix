@@ -44,20 +44,20 @@ in
       "nvme"
 
       # Firewire support.  Not tested.
-      "ohci1394" "sbp2"
+      # "ohci1394" "sbp2"
 
       # Virtio (QEMU, KVM etc.) support.
       "virtio_net" "virtio_pci" "virtio_mmio" "virtio_blk" "virtio_scsi" "virtio_balloon" "virtio_console"
 
       # VMware support.
-      "mptspi" "vmxnet3" "vsock"
+      # "mptspi" "vmxnet3" "vsock"
     ] ++ lib.optional platform.isx86 "vmw_balloon"
     ++ lib.optionals (pkgs.stdenv.isi686 || pkgs.stdenv.isx86_64) [
       "vmw_vmci" "vmwgfx" "vmw_vsock_vmci_transport"
 
       # Hyper-V support.
-      "hv_storvsc"
-    ] ++ lib.optionals pkgs.stdenv.hostPlatform.isAarch [
+      # "hv_storvsc"
+    ] ++ lib.optionals (pkgs.stdenv.isAarch32 || pkgs.stdenv.isAarch64) [
       # Most of the following falls into two categories:
       #  - early KMS / early display
       #  - early storage (e.g. USB) support
@@ -68,11 +68,11 @@ in
       # Allwinner support
 
       # Required for early KMS
-      "sun4i-drm"
-      "sun8i-mixer" # Audio, but required for kms
+      # "sun4i-drm"
+      # "sun8i-mixer" # Audio, but required for kms
 
       # PWM for the backlight
-      "pwm-sun4i"
+      # "pwm-sun4i"
 
       # Broadcom
 
@@ -87,12 +87,12 @@ in
       "pcie-brcmstb"
 
       # Rockchip
-      "dw-hdmi"
-      "dw-mipi-dsi"
-      "rockchipdrm"
-      "rockchip-rga"
-      "phy-rockchip-pcie"
-      "pcie-rockchip-host"
+      # "dw-hdmi"
+      # "dw-mipi-dsi"
+      # "rockchipdrm"
+      # "rockchip-rga"
+      # "phy-rockchip-pcie"
+      # "pcie-rockchip-host"
 
       # Misc. uncategorized hardware
 
