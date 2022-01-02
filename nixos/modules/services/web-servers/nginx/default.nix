@@ -164,7 +164,6 @@ let
         proxy_send_timeout      ${cfg.proxyTimeout};
         proxy_read_timeout      ${cfg.proxyTimeout};
         proxy_http_version      1.1;
-        include ${recommendedProxyConfig};
       ''}
 
       ${optionalString (cfg.mapHashBucketSize != null) ''
@@ -360,7 +359,7 @@ let
       ${optionalString (config.alias != null) "alias ${config.alias};"}
       ${optionalString (config.return != null) "return ${config.return};"}
       ${config.extraConfig}
-      ${optionalString (config.proxyPass != null && cfg.recommendedProxySettings) "include ${recommendedProxyConfig};"}
+      ${optionalString (config.proxyPass != null && config.recommendedProxySettings) "include ${recommendedProxyConfig};"}
       ${mkBasicAuth "sublocation" config}
     }
   '') (sortProperties (mapAttrsToList (k: v: v // { location = k; }) locations)));

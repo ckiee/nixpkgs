@@ -3,7 +3,7 @@
 # has additional options that affect the web server as a whole, like
 # the user/group to run under.)
 
-{ lib }:
+{ lib, config }:
 
 with lib;
 
@@ -127,6 +127,14 @@ with lib;
         The semantics are the same as with `lib.mkOrder`. Smaller values have
         a greater priority.
       '';
+    };
+
+    recommendedProxySettings = mkOption {
+      default = config.services.nginx.recommendedProxySettings;
+      type = types.bool;
+      description = "
+        Enable recommended proxy settings.
+      ";
     };
   };
 }
