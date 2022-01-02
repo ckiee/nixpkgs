@@ -211,7 +211,6 @@ let
         proxy_send_timeout      ${cfg.proxyTimeout};
         proxy_read_timeout      ${cfg.proxyTimeout};
         proxy_http_version      1.1;
-        include ${recommendedProxyConfig};
       ''}
 
       ${optionalString (cfg.mapHashBucketSize != null) ''
