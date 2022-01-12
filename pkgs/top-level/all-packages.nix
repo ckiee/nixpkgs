@@ -34332,6 +34332,8 @@ with pkgs;
 
   ezquake = callPackage ../games/ezquake { };
 
+  fmouse = callPackage ../tools/misc/fmouse { };
+
   freedroid = callPackage ../games/freedroid { };
 
   freedroidrpg = callPackage ../games/freedroidrpg { };
