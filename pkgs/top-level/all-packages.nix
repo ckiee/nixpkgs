@@ -9240,6 +9240,8 @@ with pkgs;
 
   pdftoipe = callPackage ../tools/graphics/pdftoipe { };
 
+  fmouse = callPackage ../tools/misc/fmouse { };
+
   pdfminer = with python3Packages; toPythonApplication pdfminer;
 
   pdf-quench = callPackage ../applications/misc/pdf-quench { };
