@@ -16480,6 +16480,8 @@ with pkgs;
 
   _90secondportraits = callPackage ../games/90secondportraits { love = love_0_10; };
 
+  fmouse = callPackage ../tools/misc/fmouse { };
+
   inherit (callPackages ../games/fteqw {})
     fteqw
     fteqw-dedicated
