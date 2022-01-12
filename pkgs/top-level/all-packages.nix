@@ -34383,6 +34383,8 @@ with pkgs;
 
   fmodex = callPackage ../games/zandronum/fmod.nix { };
 
+  fmouse = callPackage ../tools/misc/fmouse { };
+
   freedroid = callPackage ../games/freedroid { };
 
   freedroidrpg = callPackage ../games/freedroidrpg { };
