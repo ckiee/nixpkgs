@@ -130,7 +130,7 @@ with lib;
     };
 
     recommendedProxySettings = mkOption {
-      default = config.services.nginx.recommendedProxySettings;
+      default = true;
       type = types.bool;
       description = "
         Enable recommended proxy settings.
