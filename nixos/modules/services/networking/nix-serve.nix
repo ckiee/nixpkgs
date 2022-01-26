@@ -64,6 +64,13 @@ in
       extra-allowed-users = [ "nix-serve" ];
     };
 
+    users.users.nix-serve = {
+      isSystemUser = true;
+      description = "nix-serve binary cache user";
+      group = "nix-serve";
+    };
+    users.groups.nix-serve = {};
+
     systemd.services.nix-serve = {
       description = "nix-serve binary cache server";
       after = [ "network.target" ];
@@ -84,7 +91,6 @@ in
         RestartSec = "5s";
         User = "nix-serve";
         Group = "nix-serve";
-        DynamicUser = true;
         LoadCredential = lib.optionalString (cfg.secretKeyFile != null)
           "NIX_SECRET_KEY_FILE:${cfg.secretKeyFile}";
       };
