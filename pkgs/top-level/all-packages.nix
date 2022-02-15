@@ -25810,6 +25810,8 @@ with pkgs;
 
   dunst = callPackage ../applications/misc/dunst { };
 
+  dunst_ckie = callPackage ../applications/misc/dunst/ckie.nix { };
+
   du-dust = callPackage ../tools/misc/dust { };
 
   dutree = callPackage ../tools/misc/dutree { };
