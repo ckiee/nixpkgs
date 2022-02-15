@@ -28641,6 +28641,8 @@ with pkgs;
     inherit (darwin.apple_sdk.frameworks) AppKit;
   };
 
+  dunst_ckie = callPackage ../applications/misc/dunst/ckie.nix { };
+
   dutree = callPackage ../tools/misc/dutree { };
 
   devede = callPackage ../applications/video/devede { };
