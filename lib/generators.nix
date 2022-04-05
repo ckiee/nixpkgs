@@ -402,6 +402,79 @@ rec {
 ${expr "" v}
 </plist>'';
 
+  # libconfig handling
+  toLibconfig = { }:
+    v:
+    let
+      isFloat = builtins.isFloat or (x: false);
+      expr = ind: x:
+        with builtins;
+        if x == null then
+          ""
+        else if isBool x then
+          bool ind x
+        else if isInt x then
+          num ind x
+        else if isFloat x then
+          num ind x
+        else if isString x then
+          str ind x
+        else if isPath x then
+          path ind x
+        else if isList x then
+          list ind x
+        else if isAttrs x then
+          attrs ind x
+        else
+          abort "generators.toLibconfig: should never happen (v = ${v})";
+
+      literal = ind: x: ind + x;
+
+      bool = ind: x: literal ind (if x then "true" else "false");
+      num = ind: x: literal ind (toString x);
+      str = ind: x: literal ind ''"${x}"'';
+      key = ind: x: literal ind "${x}: ";
+      path = ind: x: literal ind (toString x);
+
+      indent = ind: expr "\t${ind}";
+
+      item = ind:
+        libStr.concatMapStringsSep ''
+          ,
+        '' (indent ind);
+
+      list = ind: x:
+        libStr.concatStringsSep "\n" [
+          (literal ind "(")
+          (item ind x)
+          (literal ind ")")
+        ];
+
+      attrs = ind: x:
+        libStr.concatStringsSep "\n" [
+          (literal ind "{")
+          (attr false ind x)
+          (literal ind "}")
+        ];
+
+      attr = top: ind: x:
+        let
+          attrFilter = name: value: name != "_module" && value != null;
+          newInd = if top then ind else "\t${ind}";
+        in libStr.concatStringsSep "\n" (lib.flatten (lib.mapAttrsToList
+          (name: value:
+            lib.optional (attrFilter name value) [
+              (key newInd name)
+              (expr newInd value)
+            ]) x));
+
+    in (if v != null && builtins.isAttrs v then
+      attr true "" v
+    else
+      abort
+      "generators.toLibconfig: top-level value must be an attrset (was ${v})");
+
+
   /* Translate a simple Nix expression to Dhall notation.
    * Note that integers are translated to Integer and never
    * the Natural type.
