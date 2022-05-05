@@ -1,4 +1,4 @@
-{ config, lib, utils, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -662,7 +662,7 @@ in
           ${cfgPath}.source = xorg.xf86inputevdev.out + "/share" + cfgPath;
         });
 
-    environment.systemPackages = utils.removePackagesByName
+    environment.systemPackages = pkgs.gnome.removePackagesByName
       [ xorg.xorgserver.out
         xorg.xrandr
         xorg.xrdb
