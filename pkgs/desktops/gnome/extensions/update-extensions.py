@@ -1,9 +1,20 @@
 #!/usr/bin/env nix-shell
 #!nix-shell -I nixpkgs=../../../.. -i python3 -p python3
 
+<<<<<<< HEAD
+=======
+import base64
+import io
+>>>>>>> parent of dcb93d0080d (gnomeExtensions: update-extensions.py improve download)
 import json
 import urllib.request
+<<<<<<< HEAD
 import urllib.error
+=======
+import zipfile
+from operator import itemgetter
+from pathlib import Path
+>>>>>>> parent of dcb93d0080d (gnomeExtensions: update-extensions.py improve download)
 from typing import List, Dict, Optional, Any, Tuple
 import logging
 from operator import itemgetter
@@ -51,18 +62,23 @@ def fetch_extension_data(uuid: str, version: str) -> Tuple[str, str]:
     # Yes, we download that file three times:
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     # The first time is for the maintainter, so they may have a personal backup to fix potential issues
     # subprocess.run(
     #     ["wget", url], capture_output=True, text=True
     # )
 =======
     # Yes, we download that file two times:
+=======
+    # Yes, we download that file three times:
+>>>>>>> parent of dcb93d0080d (gnomeExtensions: update-extensions.py improve download)
 
     # The first time is for the maintainer, so they may have a personal backup to fix potential issues
     # subprocess.run(
     #     ["wget", url], capture_output=True, text=True
     # )
 
+<<<<<<< HEAD
     # The second time, we add the file to store
     process = subprocess.run(
         ["nix-prefetch-url", "--unpack", "--print-path", url], capture_output=True, text=True
@@ -74,6 +90,13 @@ def fetch_extension_data(uuid: str, version: str) -> Tuple[str, str]:
         data = zipfile.ZipFile(io.BytesIO(response.read()), 'r')
         metadata = base64.b64encode(data.read('metadata.json')).decode()
 
+=======
+    # The second time, we extract the metadata.json because we need it too
+    with urllib.request.urlopen(url) as response:
+        data = zipfile.ZipFile(io.BytesIO(response.read()), 'r')
+        metadata = base64.b64encode(data.read('metadata.json')).decode()
+
+>>>>>>> parent of dcb93d0080d (gnomeExtensions: update-extensions.py improve download)
     # The third time is to get the file into the store and to get its hash
     hash = subprocess.run(
         ["nix-prefetch-url", "--unpack", url], capture_output=True, text=True
