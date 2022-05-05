@@ -1,19 +1,6 @@
-{ stdenv
-, lib
-, fetchurl
-, fetchpatch
-, pkg-config
-, gnome
-, gtk3
-, wrapGAppsHook
-, libxml2
-, gettext
-, itstool
-, meson
-, ninja
-, python3
-, vala
-, desktop-file-utils
+{ lib, stdenv, fetchurl, pkg-config, gnome, gtk3, wrapGAppsHook
+, libxml2, gettext, itstool, meson, ninja, python3
+, vala, desktop-file-utils
 }:
 
 stdenv.mkDerivation rec {
@@ -25,31 +12,14 @@ stdenv.mkDerivation rec {
     sha256 = "06wihvqp2p52zd2dnknsc3rii69qib4a30yp15h558xrg44z3k8z";
   };
 
-  patches = [
-    # Fix build with meson 0.61
-    # data/meson.build:37:0: ERROR: Function does not take positional arguments.
-    # data/meson.build:59:0: ERROR: Function does not take positional arguments.
-    # Taken from https://gitlab.gnome.org/GNOME/gnome-tetravex/-/merge_requests/20
-    (fetchpatch {
-      url = "https://gitlab.gnome.org/GNOME/gnome-tetravex/-/commit/80912d06f5e588f6aca966fa516103275e58d94e.patch";
-      sha256 = "2+nFw5sJzbInibKaq3J10Ufbl3CnZWlgnUtzRTZ5G0I=";
-    })
-  ];
+  passthru = {
+    updateScript = gnome.updateScript { packageName = "gnome-tetravex"; attrPath = "gnome.gnome-tetravex"; };
+  };
 
   nativeBuildInputs = [
-    wrapGAppsHook
-    itstool
-    libxml2
-    gnome.adwaita-icon-theme
-    pkg-config
-    gettext
-    meson
-    ninja
-    python3
-    vala
-    desktop-file-utils
+    wrapGAppsHook itstool libxml2 gnome.adwaita-icon-theme
+    pkg-config gettext meson ninja python3 vala desktop-file-utils
   ];
-
   buildInputs = [
     gtk3
   ];
@@ -58,13 +28,6 @@ stdenv.mkDerivation rec {
     chmod +x build-aux/meson_post_install.py
     patchShebangs build-aux/meson_post_install.py
   '';
-
-  passthru = {
-    updateScript = gnome.updateScript {
-      packageName = "gnome-tetravex";
-      attrPath = "gnome.gnome-tetravex";
-    };
-  };
 
   meta = with lib; {
     homepage = "https://wiki.gnome.org/Apps/Tetravex";
