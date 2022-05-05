@@ -55,9 +55,6 @@
   "extension-list@tu.berry" = "extension-list";
   "screen-lock@garciabaameiro.com" = "screen-lock"; # Don't know why they got 'extension-list' as slug
 
-  "volume_scroller@trflynn89.pm.me" = "volume-scroller";
-  "volume_scroller@noskoski" = "volume-scroller-2";
-
   # ####### GNOME 3.38 #######
 
   "bottompanel@tmoer93" = "bottompanel";

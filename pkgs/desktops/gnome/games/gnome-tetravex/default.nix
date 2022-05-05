@@ -1,18 +1,6 @@
-{ stdenv
-, lib
-, fetchurl
-, pkg-config
-, gnome
-, gtk3
-, wrapGAppsHook
-, libxml2
-, gettext
-, itstool
-, meson
-, ninja
-, python3
-, vala
-, desktop-file-utils
+{ lib, stdenv, fetchurl, pkg-config, gnome, gtk3, wrapGAppsHook
+, libxml2, gettext, itstool, meson, ninja, python3
+, vala, desktop-file-utils
 }:
 
 stdenv.mkDerivation rec {
@@ -24,20 +12,14 @@ stdenv.mkDerivation rec {
     sha256 = "06wihvqp2p52zd2dnknsc3rii69qib4a30yp15h558xrg44z3k8z";
   };
 
-  nativeBuildInputs = [
-    wrapGAppsHook
-    itstool
-    libxml2
-    gnome.adwaita-icon-theme
-    pkg-config
-    gettext
-    meson
-    ninja
-    python3
-    vala
-    desktop-file-utils
-  ];
+  passthru = {
+    updateScript = gnome.updateScript { packageName = "gnome-tetravex"; attrPath = "gnome.gnome-tetravex"; };
+  };
 
+  nativeBuildInputs = [
+    wrapGAppsHook itstool libxml2 gnome.adwaita-icon-theme
+    pkg-config gettext meson ninja python3 vala desktop-file-utils
+  ];
   buildInputs = [
     gtk3
   ];
@@ -46,13 +28,6 @@ stdenv.mkDerivation rec {
     chmod +x build-aux/meson_post_install.py
     patchShebangs build-aux/meson_post_install.py
   '';
-
-  passthru = {
-    updateScript = gnome.updateScript {
-      packageName = "gnome-tetravex";
-      attrPath = "gnome.gnome-tetravex";
-    };
-  };
 
   meta = with lib; {
     homepage = "https://wiki.gnome.org/Apps/Tetravex";
