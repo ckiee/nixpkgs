@@ -8,7 +8,7 @@
 , libxml2
 , python3
 , libnotify
-, wrapGAppsHook4
+, wrapGAppsHook
 , libmediaart
 , gobject-introspection
 , gnome-online-accounts
@@ -30,13 +30,13 @@
 
 python3.pkgs.buildPythonApplication rec {
   pname = "gnome-music";
-  version = "42.1";
+  version = "42.0";
 
   format = "other";
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${lib.versions.major version}/${pname}-${version}.tar.xz";
-    sha256 = "x3R/pqhrVrGK1v+VD/kB5Z7n+sEcaLKmcnr4bq7tgnA=";
+    sha256 = "nWgZj5hSveD4NFhLlqgSiX0xDLcXKLak8Ji8spsZxdA=";
   };
 
   nativeBuildInputs = [
@@ -46,7 +46,7 @@ python3.pkgs.buildPythonApplication rec {
     itstool
     pkg-config
     libxml2
-    wrapGAppsHook4
+    wrapGAppsHook
     desktop-file-utils
     appstream-glib
     gobject-introspection
@@ -60,6 +60,7 @@ python3.pkgs.buildPythonApplication rec {
     gnome-online-accounts
     gobject-introspection
     gdk-pixbuf
+    gnome.adwaita-icon-theme
     python3
     grilo
     grilo-plugins

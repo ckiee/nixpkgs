@@ -5,6 +5,7 @@
 , gettext
 , fetchFromGitLab
 , python3Packages
+, libpwquality
 , wrapGAppsHook4
 , gtk4
 , glib
@@ -16,7 +17,7 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "gnome-secrets";
-  version = "6.4";
+  version = "6.1";
   format = "other";
   strictDeps = false; # https://github.com/NixOS/nixpkgs/issues/56943
 
@@ -25,7 +26,7 @@ python3Packages.buildPythonApplication rec {
     owner = "World";
     repo = "secrets";
     rev = version;
-    sha256 = "sha256-qO2DJ/Eb9+G1R3un2+n9Tf6oxpGrEuH3SBrajQ9tCPU=";
+    sha256 = "sha256-TBGNiiR0GW8s/Efi4/Qqvwd87Ir0gCLGPfBmmqqSwQ8=";
   };
 
   nativeBuildInputs = [
@@ -44,7 +45,6 @@ python3Packages.buildPythonApplication rec {
     glib
     gdk-pixbuf
     libadwaita
-    python3Packages.libpwquality.dev # Use python-enabled libpwquality
   ];
 
   propagatedBuildInputs = with python3Packages; [
@@ -52,8 +52,13 @@ python3Packages.buildPythonApplication rec {
     construct
     pykeepass
     pyotp
-    libpwquality
+  ] ++ [
+    libpwquality # using the python bindings
   ];
+
+  postPatch = ''
+    substituteInPlace meson_post_install.py --replace "gtk-update-icon-cache" "gtk4-update-icon-cache";
+  '';
 
   # Prevent double wrapping, let the Python wrapper use the args in preFixup.
   dontWrapGApps = true;
@@ -71,3 +76,4 @@ python3Packages.buildPythonApplication rec {
     maintainers = with maintainers; [ mvnetbiz ];
   };
 }
+
