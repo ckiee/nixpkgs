@@ -283,7 +283,11 @@ if __name__ == "__main__":
         f"Done. Writing results to extensions.json ({len(processed_extensions)} extensions in total)"
     )
 
+<<<<<<< HEAD
     with open("extensions.json", "w") as out:
+=======
+    with open(updater_dir_path / "extensions.json", "w") as out:
+>>>>>>> parent of 7a542392673 (gnomeExtensions: update-extensions.py move info after writing to file)
         # Manually pretty-print the outer level, but then do one compact line per extension
         # This allows for the diffs to be manageable (one line of change per extension) despite their quantity
         for index, extension in enumerate(processed_extensions):
@@ -295,14 +299,22 @@ if __name__ == "__main__":
             out.write("\n")
         out.write("]\n")
 
+<<<<<<< HEAD
     with open("extensions.json", "r") as out:
+=======
+    with open(updater_dir_path / "extensions.json", "r") as out:
+>>>>>>> parent of 7a542392673 (gnomeExtensions: update-extensions.py move info after writing to file)
         # Check that the generated file actually is valid JSON, just to be sure
         json.load(out)
 
     logging.info(
         "Done. Writing name collisions to collisions.json (please check manually)"
     )
+<<<<<<< HEAD
     with open("collisions.json", "w") as out:
+=======
+    with open(updater_dir_path / "collisions.json", "w") as out:
+>>>>>>> parent of 7a542392673 (gnomeExtensions: update-extensions.py move info after writing to file)
         # Filter out those that are not duplicates
         package_name_registry_filtered: Dict[ShellVersion, Dict[PackageName, List[Uuid]]] = {
             # The outer level keys are shell versions
