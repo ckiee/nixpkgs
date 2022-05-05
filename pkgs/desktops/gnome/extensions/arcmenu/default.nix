@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "gnome-shell-extension-arcmenu";
-  version = "27";
+  version = "24";
 
   src = fetchFromGitLab {
     owner = "arcmenu";
     repo = "ArcMenu";
     rev = "v${version}";
-    sha256 = "sha256-X5oA475Wl3SKVLLcg47Hv91VV8HGeNHhaQLfNi3xt8k=";
+    sha256 = "sha256-GbZt6JC+uAPkb4GU1Q7WRJ6Pf95Uh48cYwvoTgLimHs=";
   };
 
   patches = [

@@ -64,7 +64,6 @@ stdenv.mkDerivation rec {
 
   configureFlags = [
     (lib.enableFeature (stdenv.buildPlatform == stdenv.hostPlatform) "gtk-doc")
-    "--sysconfdir=/etc"
     "--localstatedir=/var"
     "--with-systemdsystemunitdir=$(out)/etc/systemd/system"
     "--with-udevdir=$(out)/lib/udev"
@@ -74,10 +73,6 @@ stdenv.mkDerivation rec {
   makeFlags = [
     "INTROSPECTION_GIRDIR=$(dev)/share/gir-1.0"
     "INTROSPECTION_TYPELIBDIR=$(out)/lib/girepository-1.0"
-  ];
-
-  installFlags = [
-    "sysconfdir=${placeholder "out"}/etc"
   ];
 
   enableParallelBuilding = true;
