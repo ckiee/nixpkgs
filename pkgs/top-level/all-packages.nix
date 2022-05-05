@@ -6404,8 +6404,6 @@ with pkgs;
 
   gnome-secrets = callPackage ../applications/misc/gnome-secrets { };
 
-  gnome-solanum = callPackage ../applications/misc/gnome-solanum { };
-
   gnome-podcasts = callPackage ../applications/audio/gnome-podcasts { };
 
   gnome-photos = callPackage ../applications/graphics/gnome-photos { };
