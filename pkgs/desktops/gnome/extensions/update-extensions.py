@@ -35,7 +35,10 @@ supported_versions = {
     "42": "42",
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 30818451447 (gnomeExtensions: update-extensions.py fix typos)
 # Some type alias to increase readility of complex compound types
 PackageName = str
 ShellVersion = str
@@ -66,6 +69,7 @@ def fetch_extension_data(uuid: str, version: str) -> Tuple[str, str]:
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     # The first time is for the maintainter, so they may have a personal backup to fix potential issues
     # subprocess.run(
     #     ["wget", url], capture_output=True, text=True
@@ -77,6 +81,9 @@ def fetch_extension_data(uuid: str, version: str) -> Tuple[str, str]:
 >>>>>>> parent of dcb93d0080d (gnomeExtensions: update-extensions.py improve download)
 
     # The first time is for the maintainer, so they may have a personal backup to fix potential issues
+=======
+    # The first time is for the maintainter, so they may have a personal backup to fix potential issues
+>>>>>>> parent of 30818451447 (gnomeExtensions: update-extensions.py fix typos)
     # subprocess.run(
     #     ["wget", url], capture_output=True, text=True
     # )
