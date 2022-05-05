@@ -15504,7 +15504,7 @@ with pkgs;
 
   gnome-desktop-testing = callPackage ../development/tools/gnome-desktop-testing {};
 
-  gnome-firmware = callPackage ../applications/misc/gnome-firmware {};
+  gnome-firmware-updater = callPackage ../applications/misc/gnome-firmware-updater {};
 
   gnome-usage = callPackage ../applications/misc/gnome-usage {};
 
@@ -24262,6 +24262,8 @@ with pkgs;
   gnome-user-docs = callPackage ../data/documentation/gnome-user-docs { };
 
   gsettings-desktop-schemas = callPackage ../development/libraries/gsettings-desktop-schemas { };
+
+  gnome-breeze = callPackage ../data/themes/gnome-breeze { };
 
   gnome-icon-theme = callPackage ../data/icons/gnome-icon-theme { };
 
