@@ -105,7 +105,9 @@ lib.makeScope pkgs.newScope (self: with self; {
     inherit (gnome) file-roller;
   };
 
-  gala = callPackage ./desktop/gala { };
+  gala = callPackage ./desktop/gala {
+    inherit (gnome) gnome-desktop;
+  };
 
   gnome-bluetooth-contract = callPackage ./desktop/gnome-bluetooth-contract {
     inherit (gnome) gnome-bluetooth;
@@ -195,7 +197,9 @@ lib.makeScope pkgs.newScope (self: with self; {
 
   switchboard-plug-onlineaccounts = callPackage ./apps/switchboard-plugs/onlineaccounts { };
 
-  switchboard-plug-pantheon-shell = callPackage ./apps/switchboard-plugs/pantheon-shell { };
+  switchboard-plug-pantheon-shell = callPackage ./apps/switchboard-plugs/pantheon-shell {
+    inherit (gnome) gnome-desktop;
+  };
 
   switchboard-plug-power = callPackage ./apps/switchboard-plugs/power { };
 

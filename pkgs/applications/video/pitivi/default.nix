@@ -13,7 +13,6 @@
 , libpeas
 , librsvg
 , gnome
-, gnome-desktop
 , libnotify
 , gsound
 , meson
@@ -61,7 +60,7 @@ python3Packages.buildPythonApplication rec {
     gtk3
     libpeas
     librsvg
-    gnome-desktop
+    gnome.gnome-desktop
     gsound
     gnome.adwaita-icon-theme
     gsettings-desktop-schemas

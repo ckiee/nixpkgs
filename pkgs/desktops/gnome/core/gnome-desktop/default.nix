@@ -7,7 +7,6 @@
 , ninja
 , gnome
 , gtk3
-, gtk4
 , glib
 , gettext
 , libxml2
@@ -27,13 +26,13 @@
 
 stdenv.mkDerivation rec {
   pname = "gnome-desktop";
-  version = "42.alpha.1";
+  version = "41.3";
 
   outputs = [ "out" "dev" "devdoc" ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/gnome-desktop/${lib.versions.major version}/${pname}-${version}.tar.xz";
-    sha256 = "sha256-lxUTBDVAeqgptNWdwDb/XKOSTytO4X7FMBf2ar2gX+w=";
+    sha256 = "sha256-jNHKq5MRgowEUkaMalBnqbxEY4NbI6FL5E6P2bAwAcY=";
   };
 
   patches = [
@@ -64,7 +63,6 @@ stdenv.mkDerivation rec {
     isocodes
     wayland
     gtk3
-    gtk4
     glib
     libseccomp
     systemd
@@ -86,6 +84,7 @@ stdenv.mkDerivation rec {
   passthru = {
     updateScript = gnome.updateScript {
       packageName = "gnome-desktop";
+      attrPath = "gnome.gnome-desktop";
     };
   };
 

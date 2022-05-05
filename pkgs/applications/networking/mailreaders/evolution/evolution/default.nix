@@ -26,7 +26,6 @@
 , gcr
 , sqlite
 , gnome
-, gnome-desktop
 , librsvg
 , gdk-pixbuf
 , libsecret
@@ -72,7 +71,7 @@ stdenv.mkDerivation rec {
     gdk-pixbuf
     glib
     glib-networking
-    gnome-desktop
+    gnome.gnome-desktop
     gsettings-desktop-schemas
     gst_all_1.gst-plugins-base
     gst_all_1.gstreamer
