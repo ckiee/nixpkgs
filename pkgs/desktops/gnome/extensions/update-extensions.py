@@ -2,6 +2,7 @@
 #!nix-shell -I nixpkgs=../../../.. -i python3 -p python3
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import base64
 import io
@@ -18,6 +19,11 @@ from pathlib import Path
 >>>>>>> parent of dcb93d0080d (gnomeExtensions: update-extensions.py improve download)
 =======
 >>>>>>> parent of 51fdb8f239c (gnomeExtensions: update-extensions.py use relative paths)
+=======
+import json
+import urllib.request
+import urllib.error
+>>>>>>> parent of 5ce8c340439 (gnomeExtensions: update-extensions.py format)
 from typing import List, Dict, Optional, Any, Tuple
 import logging
 from operator import itemgetter
@@ -36,9 +42,13 @@ supported_versions = {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> parent of 30818451447 (gnomeExtensions: update-extensions.py fix typos)
+=======
+
+>>>>>>> parent of 5ce8c340439 (gnomeExtensions: update-extensions.py format)
 # Some type alias to increase readility of complex compound types
 PackageName = str
 ShellVersion = str
