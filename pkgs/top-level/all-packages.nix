@@ -33983,7 +33983,7 @@ with pkgs;
 
   keynav = callPackage ../tools/X11/keynav { };
 
-  gnome-console = callPackage ../applications/terminal-emulators/gnome-console { };
+  kgx = callPackage ../applications/terminal-emulators/kgx { };
 
   kmon = callPackage ../tools/system/kmon { };
 

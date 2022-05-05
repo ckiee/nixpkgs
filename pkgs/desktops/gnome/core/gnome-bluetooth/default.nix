@@ -26,14 +26,14 @@
 
 stdenv.mkDerivation rec {
   pname = "gnome-bluetooth";
-  version = "42.0";
+  version = "42.beta";
 
   # TODO: split out "lib"
   outputs = [ "out" "dev" "devdoc" "man" ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${lib.versions.major version}/${pname}-${version}.tar.xz";
-    sha256 = "PR4nIGc7yaJCYZ3F0jH9bndsGKSdop9DzcQzBVrbAXA=";
+    sha256 = "1Qn47dpsMIU7kx3M4y4km9SdvKuLxFSUHqmP/fHuvao=";
   };
 
   nativeBuildInputs = [
@@ -63,8 +63,18 @@ stdenv.mkDerivation rec {
   ];
 
   mesonFlags = [
+    "-Dicon_update=false"
     "-Dgtk_doc=true"
   ];
+
+  postPatch = ''
+    chmod +x meson_post_install.py # patchShebangs requires executable file
+    patchShebangs meson_post_install.py
+
+    # https://gitlab.gnome.org/GNOME/gnome-bluetooth/-/merge_requests/117
+    substituteInPlace lib/bluetooth-utils.c \
+      --replace "/* fallthrough */" "break;"
+  '';
 
   passthru = {
     updateScript = gnome.updateScript {

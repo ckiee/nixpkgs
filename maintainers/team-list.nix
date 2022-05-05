@@ -256,7 +256,6 @@ with lib.maintainers; {
 
   gnome = {
     members = [
-      bobby285271
       hedning
       jtojnar
       dasj19

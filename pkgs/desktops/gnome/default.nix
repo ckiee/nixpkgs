@@ -48,8 +48,6 @@ lib.makeScope pkgs.newScope (self: with self; {
 
   gnome-bluetooth = callPackage ./core/gnome-bluetooth { };
 
-  gnome-bluetooth_1_0 = callPackage ./core/gnome-bluetooth/1.0 { };
-
   gnome-color-manager = callPackage ./core/gnome-color-manager { };
 
   gnome-contacts = callPackage ./core/gnome-contacts { };

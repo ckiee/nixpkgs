@@ -1,20 +1,5 @@
-{ stdenv
-, lib
-, fetchurl
-, meson
-, ninja
-, pkg-config
-, gnome
-, gtk3
-, wrapGAppsHook
-, librsvg
-, libgnome-games-support
-, gettext
-, itstool
-, libxml2
-, python3
-, vala
-}:
+{ lib, stdenv, fetchurl, meson, ninja, pkg-config, gnome, gtk3, wrapGAppsHook
+, librsvg, libgnome-games-support, gettext, itstool, libxml2, python3, vala }:
 
 stdenv.mkDerivation rec {
   pname = "five-or-more";
@@ -26,22 +11,11 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    gettext
-    itstool
-    libxml2
-    python3
-    wrapGAppsHook
+    meson ninja pkg-config gettext itstool libxml2 python3 wrapGAppsHook
     vala
   ];
-
   buildInputs = [
-    gtk3
-    librsvg
-    libgnome-games-support
-    gnome.adwaita-icon-theme
+    gtk3 librsvg libgnome-games-support gnome.adwaita-icon-theme
   ];
 
   postPatch = ''

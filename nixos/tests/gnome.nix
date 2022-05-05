@@ -22,7 +22,6 @@ import ./make-test-python.nix ({ pkgs, lib, ...} : {
 
       services.xserver.desktopManager.gnome.enable = true;
       services.xserver.desktopManager.gnome.debug = true;
-      programs.gnome-terminal.enable = true;
 
       environment.systemPackages = [
         (pkgs.makeAutostartItem {
