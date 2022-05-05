@@ -13,8 +13,11 @@ import urllib.error
 =======
 import zipfile
 from operator import itemgetter
+<<<<<<< HEAD
 from pathlib import Path
 >>>>>>> parent of dcb93d0080d (gnomeExtensions: update-extensions.py improve download)
+=======
+>>>>>>> parent of 51fdb8f239c (gnomeExtensions: update-extensions.py use relative paths)
 from typing import List, Dict, Optional, Any, Tuple
 import logging
 from operator import itemgetter
@@ -307,10 +310,14 @@ if __name__ == "__main__":
     )
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     with open("extensions.json", "w") as out:
 =======
     with open(updater_dir_path / "extensions.json", "w") as out:
 >>>>>>> parent of 7a542392673 (gnomeExtensions: update-extensions.py move info after writing to file)
+=======
+    with open("extensions.json", "w") as out:
+>>>>>>> parent of 51fdb8f239c (gnomeExtensions: update-extensions.py use relative paths)
         # Manually pretty-print the outer level, but then do one compact line per extension
         # This allows for the diffs to be manageable (one line of change per extension) despite their quantity
         for index, extension in enumerate(processed_extensions):
@@ -323,10 +330,14 @@ if __name__ == "__main__":
         out.write("]\n")
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     with open("extensions.json", "r") as out:
 =======
     with open(updater_dir_path / "extensions.json", "r") as out:
 >>>>>>> parent of 7a542392673 (gnomeExtensions: update-extensions.py move info after writing to file)
+=======
+    with open("extensions.json", "r") as out:
+>>>>>>> parent of 51fdb8f239c (gnomeExtensions: update-extensions.py use relative paths)
         # Check that the generated file actually is valid JSON, just to be sure
         json.load(out)
 
@@ -334,10 +345,14 @@ if __name__ == "__main__":
         "Done. Writing name collisions to collisions.json (please check manually)"
     )
 <<<<<<< HEAD
+<<<<<<< HEAD
     with open("collisions.json", "w") as out:
 =======
     with open(updater_dir_path / "collisions.json", "w") as out:
 >>>>>>> parent of 7a542392673 (gnomeExtensions: update-extensions.py move info after writing to file)
+=======
+    with open("collisions.json", "w") as out:
+>>>>>>> parent of 51fdb8f239c (gnomeExtensions: update-extensions.py use relative paths)
         # Filter out those that are not duplicates
         package_name_registry_filtered: Dict[ShellVersion, Dict[PackageName, List[Uuid]]] = {
             # The outer level keys are shell versions
