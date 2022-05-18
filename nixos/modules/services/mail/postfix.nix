@@ -779,6 +779,7 @@ in
             ExecStart = "${pkgs.postfix}/bin/postfix start";
             ExecStop = "${pkgs.postfix}/bin/postfix stop";
             ExecReload = "${pkgs.postfix}/bin/postfix reload";
+            X-Postfix-Setup-Dummy = config.systemd.services.postfix-setup.serviceConfig.ExecStart;
           };
         };
 
