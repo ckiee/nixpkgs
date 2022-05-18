@@ -1023,6 +1023,8 @@ in
             ];
             RestrictNamespaces = true;
             RestrictRealtime = true;
+
+            X-Postfix-Setup-Dummy = config.systemd.services.postfix-setup.serviceConfig.ExecStart;
           };
         };
 
