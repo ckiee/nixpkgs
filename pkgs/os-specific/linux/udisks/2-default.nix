@@ -82,7 +82,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  doCheck = true;
+  doCheck = false;
 
   passthru.tests.vm = nixosTests.udisks2;
 
