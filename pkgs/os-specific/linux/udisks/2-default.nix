@@ -140,7 +140,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  doCheck = true;
+  doCheck = false;
 
   passthru = {
     inherit libblockdev;
