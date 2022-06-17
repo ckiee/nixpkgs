@@ -43,6 +43,8 @@ in {
     warnings = optional (firewallOn && rpfIsStrict) "Strict reverse path filtering breaks Tailscale exit node use and some subnet routing setups. Consider setting `networking.firewall.checkReversePath` = 'loose'";
     environment.systemPackages = [ cfg.package ]; # for the CLI
     systemd.packages = [ cfg.package ];
+    networking.networkmanager.unmanaged = [ cfg.interfaceName ];
+
     systemd.services.tailscaled = {
       wantedBy = [ "multi-user.target" ];
       path = [
