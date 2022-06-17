@@ -54,6 +54,8 @@ in {
   config = mkIf cfg.enable {
     environment.systemPackages = [ cfg.package ]; # for the CLI
     systemd.packages = [ cfg.package ];
+    networking.networkmanager.unmanaged = [ cfg.interfaceName ];
+
     systemd.services.tailscaled = {
       wantedBy = [ "multi-user.target" ];
       path = [
