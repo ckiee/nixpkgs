@@ -143,6 +143,7 @@ in
   config = mkIf cfg.enable {
     environment.systemPackages = [ cfg.package ]; # for the CLI
     systemd.packages = [ cfg.package ];
+
     systemd.services.tailscaled = {
       after = lib.mkIf (config.networking.networkmanager.enable) [ "NetworkManager-wait-online.service" ];
       wantedBy = [ "multi-user.target" ];
@@ -262,6 +263,7 @@ in
 
     networking.dhcpcd.denyInterfaces = [ cfg.interfaceName ];
 
+    networking.networkmanager.unmanaged = [ cfg.interfaceName ];
     systemd.network.networks."50-tailscale" = mkIf isNetworkd {
       matchConfig = {
         Name = cfg.interfaceName;
