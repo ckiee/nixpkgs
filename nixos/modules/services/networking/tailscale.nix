@@ -114,6 +114,8 @@ in {
   config = mkIf cfg.enable {
     environment.systemPackages = [ cfg.package ]; # for the CLI
     systemd.packages = [ cfg.package ];
+    networking.networkmanager.unmanaged = [ cfg.interfaceName ];
+
     systemd.services.tailscaled = {
       after = lib.mkIf (config.networking.networkmanager.enable) [ "NetworkManager-wait-online.service" ];
       wantedBy = [ "multi-user.target" ];
