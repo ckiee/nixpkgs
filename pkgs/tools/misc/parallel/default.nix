@@ -53,7 +53,8 @@ stdenv.mkDerivation rec {
           coreutils
           gawk
         ]
-      }"
+      }" \
+      --add-flags "--will-cite"
   '';
 
   doCheck = true;
