@@ -57,12 +57,18 @@ in
       '';
     };
 
+    package = mkOption {
+      type = types.package;
+      default = pkgs.cgit;
+      defaultText = literalExpression "pkgs.cgit";
+      description = "cgit derivation to use";
+    };
   };
 
   config = mkIf cfg.enable {
 
     # make the cgitrc manpage available
-    environment.systemPackages = [ pkgs.cgit ];
+    environment.systemPackages = [ cfg.package ];
 
     # declare module dependencies
     services.lighttpd.enableModules = [ "mod_cgi" "mod_alias" "mod_setenv" ];
@@ -70,12 +76,12 @@ in
     services.lighttpd.extraConfig = ''
       $HTTP["url"] =~ "^/${cfg.subdir}" {
           cgi.assign = (
-              "cgit.cgi" => "${pkgs.cgit}/cgit/cgit.cgi"
+              "cgit.cgi" => "${cfg.package}/cgit/cgit.cgi"
           )
           alias.url = (
-              "${pathPrefix}/cgit.css" => "${pkgs.cgit}/cgit/cgit.css",
-              "${pathPrefix}/cgit.png" => "${pkgs.cgit}/cgit/cgit.png",
-              "${pathPrefix}"          => "${pkgs.cgit}/cgit/cgit.cgi"
+              "${pathPrefix}/cgit.css" => "${cfg.package}/cgit/cgit.css",
+              "${pathPrefix}/cgit.png" => "${cfg.package}/cgit/cgit.png",
+              "${pathPrefix}"          => "${cfg.package}/cgit/cgit.cgi"
           )
           setenv.add-environment = (
               "CGIT_CONFIG" => "${configFile}"
