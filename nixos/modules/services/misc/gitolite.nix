@@ -113,6 +113,13 @@ in
           Primary group of the Gitolite user account.
         '';
       };
+
+      package = lib.mkOption {
+        type = lib.types.package;
+        default = pkgs.gitolite;
+        defaultText = lib.literalExpression "pkgs.gitolite";
+        description = "Package that should be used for gitolite";
+      };
     };
   };
 
@@ -125,7 +132,7 @@ in
         mkdir "$out"
         export HOME=temp-home
         mkdir -p "$HOME/.gitolite/logs" # gitolite can't run without it
-        '${pkgs.gitolite}'/bin/gitolite print-default-rc >>"$out/gitolite.rc.default"
+        '${cfg.package}'/bin/gitolite print-default-rc >>"$out/gitolite.rc.default"
         cat <<END >>"$out/gitolite.rc"
         # This file is managed by NixOS.
         # Use services.gitolite options to control it.
@@ -182,7 +189,7 @@ in
         }
       ];
 
-      path = [ pkgs.gitolite pkgs.git pkgs.perl pkgs.bash pkgs.diffutils config.programs.ssh.package ];
+      path = [ cfg.package pkgs.git pkgs.perl pkgs.bash pkgs.diffutils config.programs.ssh.package ];
       script =
       let
         rcSetupScriptIfCustomFile =
@@ -232,7 +239,7 @@ in
         '';
     };
 
-    environment.systemPackages = [ pkgs.gitolite pkgs.git ]
+    environment.systemPackages = [ cfg.package pkgs.git ]
         ++ lib.optional cfg.enableGitAnnex pkgs.git-annex;
   });
 }
