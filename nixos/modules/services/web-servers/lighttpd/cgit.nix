@@ -89,10 +89,7 @@ in
       }
     '';
 
-    systemd.services.lighttpd.preStart = ''
-      mkdir -p /var/cache/cgit
-      chown lighttpd:lighttpd /var/cache/cgit
-    '';
+    systemd.tmpfiles.rules = [ "d /var/cache/cgit 660 lighttpd lighttpd" ];
 
   };
 
