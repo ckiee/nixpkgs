@@ -9,6 +9,12 @@ in
   options = {
     programs.cnping = {
       enable = mkEnableOption (lib.mdDoc "Whether to install a setcap wrapper for cnping");
+      package = mkOption {
+        default = pkgs.cnping;
+        type = types.package;
+        defaultText = literalExpression "pkgs.cnping";
+        description = lib.mdDoc "cnping derivation to use";
+      };
     };
   };
 
@@ -16,7 +22,7 @@ in
     security.wrappers.cnping = {
       owner = "root";
       group = "root";
-      source = "${pkgs.cnping}/bin/cnping";
+      source = "${cfg.package}/bin/cnping";
       capabilities = "cap_net_raw+ep";
     };
   };
