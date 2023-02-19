@@ -128,6 +128,7 @@ in
       nativeLibc = true;
       bintools = {
         name = "binutils";
+        type = "derivation";
         outPath = throw "TODO add bootstrapTools deriv";
       };
     };
@@ -141,6 +142,7 @@ in
       cc = {
         name    = "gcc-9.9.9";
         cc      = "/usr";
+        type = "derivation";
         outPath = throw "TODO add bootstrapTools deriv";
       };
     };
