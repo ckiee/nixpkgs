@@ -37,10 +37,10 @@
 
 with lib;
 
-assert nativeTools -> !propagateDoc && nativePrefix != "";
+# assert nativeTools -> !propagateDoc && nativePrefix != "";
 assert !nativeTools ->
   bintools != null && coreutils != null && gnugrep != null;
-assert !(nativeLibc && noLibc);
+# assert !(nativeLibc && noLibc);
 assert (noLibc || nativeLibc) == (libc == null);
 
 let

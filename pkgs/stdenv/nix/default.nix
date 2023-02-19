@@ -25,10 +25,11 @@ bootStages ++ [
 
       cc = import ../../build-support/cc-wrapper {
         inherit lib;
-        nativeTools = false;
+        nativeTools = hostPlatform.isSunOS;
         nativePrefix = lib.optionalString hostPlatform.isSunOS "/usr";
         nativeLibc = true;
-        inherit (prevStage) stdenvNoCC binutils coreutils gnugrep;
+        propagateDoc = hostPlatform.isSunOS;
+        inherit (prevStage) stdenvNoCC bintools coreutils gnugrep;
         cc = prevStage.gcc.cc;
         isGNU = true;
         shell = prevStage.bash + "/bin/sh";

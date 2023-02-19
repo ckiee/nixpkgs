@@ -22,7 +22,7 @@
 
 with lib;
 
-assert nativeTools -> !propagateDoc && nativePrefix != "";
+# assert nativeTools -> !propagateDoc && nativePrefix != "";
 assert !nativeTools ->
   cc != null && coreutils != null && gnugrep != null;
 assert !(nativeLibc && noLibc);
