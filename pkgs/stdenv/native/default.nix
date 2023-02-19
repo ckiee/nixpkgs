@@ -126,6 +126,10 @@ in
       inherit lib stdenvNoCC nativePrefix;
       nativeTools = true;
       nativeLibc = true;
+      bintools = {
+        name = "binutils";
+        outPath = throw "TODO add bootstrapTools deriv";
+      };
     };
 
     cc = import ../../build-support/cc-wrapper {
@@ -134,6 +138,11 @@ in
       nativeLibc = true;
       inherit lib nativePrefix bintools;
       inherit stdenvNoCC;
+      cc = {
+        name    = "gcc-9.9.9";
+        cc      = "/usr";
+        outPath = throw "TODO add bootstrapTools deriv";
+      };
     };
 
     fetchurl = import ../../build-support/fetchurl {
