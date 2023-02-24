@@ -711,6 +711,7 @@
   ./services/matrix/pantalaimon.nix
   ./services/matrix/matrix-sliding-sync.nix
   ./services/matrix/synapse.nix
+  ./services/matrix/synapse-diskspace-janitor.nix
   ./services/misc/airsonic.nix
   ./services/misc/amazon-ssm-agent.nix
   ./services/misc/ananicy.nix
