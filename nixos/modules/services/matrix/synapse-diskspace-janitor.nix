@@ -19,6 +19,15 @@ in
       description = lib.mdDoc "matrix-synapse-diskspace-janitor package to use";
     };
 
+    adminTokenFile = mkOption {
+      type = types.nullOr types.path;
+      default = null;
+      description = lib.mdDoc ''
+        Path to a file containing the value of `MatrixAdminToken`. This should be used
+        to avoid exposing the `MatrixAdminToken` to the Nix store.
+      '';
+    };
+
     settings = mkOption {
       type = types.submodule {
         freeformType = format.type;
@@ -30,16 +39,49 @@ in
         for details on supported values.
       '';
     };
+
+    dataDir = mkOption {
+      type = types.path;
+      default = "/var/lib/matrix-synapse-diskspace-janitor";
+      description = lib.mdDoc ''
+        Data directory for matrix-synapse-diskspace-janitor.
+      '';
+    };
   };
 
   config = mkIf cfg.enable {
-    systemd.packages = [ cfg.package ];
+    # error: evaluation aborted with the following error message: 'Group name 'matrix-synapse-diskspace-janitor' is longer than 31 characters which is not allowed!'
+    users.users.synapse-diskspace-janitor = {
+      group = "matrix-synapse";
+      home = cfg.dataDir;
+      createHome = true;
+      uid = config.ids.uids.synapse-diskspace-janitor;
+    };
+
     systemd.services.matrix-synapse-diskspace-janitor = {
       description = "Matrix Synapse Disk Space Janitor";
       documentation = [ "https://git.cyberia.club/cyberia/matrix-synapse-diskspace-janitor" ];
+      wantedBy = [ "multi-user.target" ];
+      after = [ "network.target" ];
+      script = ''
+        ${lib.optionalString (cfg.adminTokenFile != null) ''
+          # Environment variables override the config file.
+          export JANITOR_MATRIXADMINTOKEN=$(cat "''${CREDENTIALS_DIRECTORY}/admin-token-file")
+        ''}
+
+        ln -fs "${configFile}" config.json
+        rm frontend; ln -fs "${cfg.package.src}/frontend" frontend
+        exec ${cfg.package}/bin/matrix-synapse-diskspace-janitor
+      '';
+
       serviceConfig = {
-        DynamicUser = true;
-        User = "matrix-synapse-diskspace-janitor";
+        LoadCredential = lib.mkIf (cfg.adminTokenFile != null) "admin-token-file:${cfg.adminTokenFile}";
+
+        StateDirectory = "matrix-synapse-diskspace-janitor";
+        WorkingDirectory = "/var/lib/matrix-synapse-diskspace-janitor";
+        # DynamicUser = true;
+        User = "synapse-diskspace-janitor";
+        Group = "matrix-synapse";
         LockPersonality = true;
         MemoryDenyWriteExecute = true;
         ProtectClock = true;
@@ -59,8 +101,6 @@ in
           "@system-service"
           "~@privileged"
         ];
-        StateDirectory = "matrix-synapse-diskspace-janitor";
-        ExecStart = "${cfg.package}/bin/matrix-synapse-diskspace-janitor";
         Restart = "on-failure";
         RestartSec = 10;
         StartLimitBurst = 5;
