@@ -14,9 +14,9 @@ buildGoModule rec {
 
   vendorHash = "sha256-oxEzqqKU/pCbt9i6M4nirCjo6T9UZTiknoo9CigbO1I=";
 
-  postInstall = ''
-    install -D deployment/matrix-disk-space-janitor.service $out/lib/systemd/system/${pname}.service
-  '';
+  # Note there is a systemd service included in the upstream repository, but it
+  # assumes too many things about the system environment to meaningfully include
+  # in this package.
 
   meta = with lib; {
     description = "A program designed to fix the disk-space consumption issues that matrix-synapse continues to suffer";
