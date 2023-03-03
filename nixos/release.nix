@@ -200,7 +200,7 @@ in rec {
     module = {
         armv6l-linux = ./modules/installer/sd-card/sd-image-raspberrypi-installer.nix;
         armv7l-linux = ./modules/installer/sd-card/sd-image-armv7l-multiplatform-installer.nix;
-        aarch64-linux = ./modules/installer/sd-card/sd-image-aarch64-installer.nix;
+        aarch64-linux = ./modules/installer/sd-card/sd-image-aarch64-ivy.nix;
       }.${system};
     inherit system;
   });
