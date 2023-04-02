@@ -14888,6 +14888,12 @@ with pkgs;
 
   musescore = qt6.callPackage ../applications/audio/musescore { };
 
+  musescore3 =
+    if stdenv.isDarwin then
+      callPackage ../applications/audio/musescore/v3/darwin.nix { }
+    else
+      libsForQt5.callPackage ../applications/audio/musescore/v3 { };
+
   mwic = callPackage ../applications/misc/mwic {
     pythonPackages = python3Packages;
   };
