@@ -3,7 +3,7 @@
 , portaudio, portmidi, qtbase, qtdeclarative, qtgraphicaleffects, flac
 , qtquickcontrols2, qtscript, qtsvg, qttools
 , qtwebengine, qtxmlpatterns, qtnetworkauth, qtx11extras
-, nixosTests
+, nixosTests, wrapGAppsHook4
 }:
 
 mkDerivation rec {
@@ -41,7 +41,7 @@ mkDerivation rec {
     "--set-default QT_QPA_PLATFORM xcb"
   ];
 
-  nativeBuildInputs = [ cmake pkg-config ninja ];
+  nativeBuildInputs = [ cmake pkg-config ninja wrapGAppsHook4 ];
 
   buildInputs = [
     alsa-lib libjack2 freetype lame libogg libpulseaudio libsndfile libvorbis
