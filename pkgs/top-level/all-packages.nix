@@ -1274,6 +1274,8 @@ with pkgs;
 
   alsaequal = callPackage ../tools/audio/alsaequal { };
 
+  MCSoundsExtractorCPP = callPackage ../tools/audio/MCSoundsExtractorCPP { };
+
   acpica-tools = callPackage ../tools/system/acpica-tools { };
 
   acquire = with python3Packages; toPythonApplication acquire;
