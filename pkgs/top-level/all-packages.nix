@@ -897,6 +897,8 @@ with pkgs;
     buildGoModule = buildGo122Module; # https://github.com/joohoi/acme-dns/issues/365
   };
 
+  MCSoundsExtractorCPP = callPackage ../tools/audio/MCSoundsExtractorCPP { };
+
   acquire = with python3Packages; toPythonApplication acquire;
 
   actdiag = with python3.pkgs; toPythonApplication actdiag;
