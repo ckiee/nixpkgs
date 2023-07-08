@@ -2700,7 +2700,7 @@ let
     value.source = "${cfg.units.${name}.unit}/${name}";
   }) (attrNames cfg.units));
 
-  commonOptions = visible: {
+  commonOptions = { initrd ? false }: let visible = if initrd then "shallow" else true; in {
 
     enable = mkOption {
       default = false;
@@ -2979,8 +2979,8 @@ in
   imports = [ stage1Options ];
 
   options = {
-    systemd.network = commonOptions true;
-    boot.initrd.systemd.network = commonOptions "shallow";
+    systemd.network = commonOptions {};
+    boot.initrd.systemd.network = commonOptions { initrd = true; };
   };
 
   config = mkMerge [
