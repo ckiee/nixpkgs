@@ -330,6 +330,7 @@ let
             --prefix XDG_DATA_DIRS : "$GSETTINGS_SCHEMAS_PATH" \
             --suffix XDG_DATA_DIRS : '${adwaita-icon-theme}/share' \
             --set-default MOZ_ENABLE_WAYLAND 1 \
+            --set-default MOZ_USE_XINPUT2 1 \
         '' + lib.optionalString (!hasMozSystemDirPatch) ''
             ${lib.optionalString (allNativeMessagingHosts != []) "--run \"mkdir -p \\\${MOZ_HOME:-~/.mozilla}/native-messaging-hosts\""} \
             ${lib.concatMapStringsSep " " (ext: "--run \"ln -sfLt \\\${MOZ_HOME:-~/.mozilla}/native-messaging-hosts ${ext}/lib/mozilla/native-messaging-hosts/*\"") allNativeMessagingHosts} \
