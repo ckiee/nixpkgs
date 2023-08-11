@@ -324,6 +324,7 @@ let
             --prefix XDG_DATA_DIRS : "$GSETTINGS_SCHEMAS_PATH" \
             --suffix XDG_DATA_DIRS : '${adwaita-icon-theme}/share' \
             --set-default MOZ_ENABLE_WAYLAND 1 \
+            --set-default MOZ_USE_XINPUT2 1 \
             "''${oldWrapperArgs[@]}"
         #############################
         #                           #
