@@ -340,6 +340,10 @@ let
         "${adwaita-icon-theme}/share"
 
         "--set-default"
+        "MOZ_USE_XINPUT2"
+        "1"
+
+        "--set-default"
         "MOZ_ENABLE_WAYLAND"
         "1"
 
