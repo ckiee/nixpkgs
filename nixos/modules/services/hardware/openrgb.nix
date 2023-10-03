@@ -46,6 +46,16 @@ in
       default = null;
       description = "The profile file to load from \"/var/lib/OpenRGB\" at startup.";
     };
+
+    extraOptions = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [ ];
+      description = ''
+        Extra command line arguments to pass to the OpenRGB server.
+
+        Run `openrgb --help` for available options.
+      '';
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -80,6 +90,7 @@ in
             "--profile"
             cfg.startupProfile
           ]
+          ++ cfg.extraOptions
         );
         Restart = "always";
       };
