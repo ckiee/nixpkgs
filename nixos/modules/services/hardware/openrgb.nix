@@ -26,6 +26,16 @@ in {
       description = "Set server port of openrgb.";
     };
 
+    extraOptions = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [ ];
+      description = ''
+        Extra command line arguments to pass to the OpenRGB server.
+
+        Run `openrgb --help` for available options.
+      '';
+    };
+
   };
 
   config = lib.mkIf cfg.enable {
@@ -42,9 +52,13 @@ in {
       serviceConfig = {
         StateDirectory = "OpenRGB";
         WorkingDirectory = "/var/lib/OpenRGB";
-        ExecStart = "${cfg.package}/bin/openrgb --server --server-port ${toString cfg.server.port}";
         Restart = "always";
       };
+      script = ''
+        ${cfg.package}/bin/openrgb \
+            --server --server-port ${toString cfg.server.port} \
+            ${lib.escapeShellArgs cfg.extraOptions}
+      '';
     };
   };
 
