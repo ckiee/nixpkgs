@@ -59,10 +59,11 @@ in
   };
 
   config = mkIf cfg.enable {
-    services.udev.packages = [ pkgs.logitech-udev-rules ];
+    services.udev.packages = [ pkgs.logitech-udev-rules cfg.package ];
+    systemd.packages = [ cfg.package ];
+
     environment.etc."logid.cfg".source = renderedConfig;
 
-    systemd.packages = [ cfg.package ];
     systemd.services.logid = {
       wantedBy = [ "multi-user.target" ];
       restartTriggers = [ renderedConfig ];
