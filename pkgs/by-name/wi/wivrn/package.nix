@@ -73,10 +73,6 @@ stdenv.mkDerivation rec {
     hash = "sha256-O6Eq7EQ427hOcN16Z33I74CevnHlX/a4ZAcljgc+vk8=";
   };
 
-  patches = [
-    ./0001-server-wivrn_session-Add-fps-field-to-header.patch
-  ];
-
   prePatch = ''
     substituteInPlace ./server/CMakeLists.txt \
       --replace "../../../" "../../../../../.."
