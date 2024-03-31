@@ -246,7 +246,7 @@ in
     in {
       "${cfg.dataDir}".d = defaultRule;
       "${cfg.mediaDir}".d = defaultRule;
-      "${cfg.consumptionDir}".d = if cfg.consumptionDirIsPublic then { mode = "777"; } else defaultRule;
+      "${cfg.consumptionDir}".d = if cfg.consumptionDirIsPublic then { mode = "777"; } else defaultRule // { mode = "770"; };
     };
 
     systemd.services.paperless-scheduler = {
