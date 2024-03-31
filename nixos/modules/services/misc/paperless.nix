@@ -454,18 +454,16 @@ in
           documentation = [ "https://docs.paperless-ngx.com" ];
         };
 
-        systemd.tmpfiles.settings."10-paperless" =
-          let
-            defaultRule = {
-              inherit (cfg) user;
-              inherit (config.users.users.${cfg.user}) group;
-            };
-          in
-          {
-            "${cfg.dataDir}".d = defaultRule;
-            "${cfg.mediaDir}".d = defaultRule;
-            "${cfg.consumptionDir}".d = if cfg.consumptionDirIsPublic then { mode = "777"; } else defaultRule;
+        systemd.tmpfiles.settings."10-paperless" = let
+          defaultRule = {
+            inherit (cfg) user;
+            inherit (config.users.users.${cfg.user}) group;
           };
+        in {
+          "${cfg.dataDir}".d = defaultRule;
+          "${cfg.mediaDir}".d = defaultRule;
+          "${cfg.consumptionDir}".d = if cfg.consumptionDirIsPublic then { mode = "777"; } else defaultRule // { mode = "770"; };
+        };
 
         systemd.services.paperless-scheduler = {
           description = "Paperless Celery Beat";
