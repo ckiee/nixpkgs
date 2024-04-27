@@ -11,7 +11,7 @@ in
 {
   meta.maintainers = with maintainers; [ ckie ];
   options.services.matrix-synapse-diskspace-janitor = {
-    enable = mkEnableOption (lib.mdDoc "matrix-synapse-diskspace-janitor");
+    enable = mkEnableOption "matrix-synapse-diskspace-janitor";
     package = mkOption {
       type = types.package;
       default = pkgs.matrix-synapse-tools.matrix-synapse-diskspace-janitor;
@@ -22,7 +22,7 @@ in
     adminTokenFile = mkOption {
       type = types.nullOr types.path;
       default = null;
-      description = lib.mdDoc ''
+      description = ''
         Path to a file containing the value of `MatrixAdminToken`. This should be used
         to avoid exposing the `MatrixAdminToken` to the Nix store.
       '';
@@ -33,7 +33,7 @@ in
         freeformType = format.type;
       };
       default = { };
-      description = lib.mdDoc ''
+      description = ''
         Generates the configuration file. Refer to
         <https://git.cyberia.club/cyberia/matrix-synapse-diskspace-janitor#configuration-overview>
         for details on supported values.
@@ -43,7 +43,7 @@ in
     dataDir = mkOption {
       type = types.path;
       default = "/var/lib/matrix-synapse-diskspace-janitor";
-      description = lib.mdDoc ''
+      description = ''
         Data directory for matrix-synapse-diskspace-janitor.
       '';
     };
