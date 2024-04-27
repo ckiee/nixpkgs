@@ -16,7 +16,7 @@ in
       type = types.package;
       default = pkgs.matrix-synapse-tools.matrix-synapse-diskspace-janitor;
       defaultText = lib.literalExpression "pkgs.matrix-synapse-tools.matrix-synapse-diskspace-janitor";
-      description = lib.mdDoc "matrix-synapse-diskspace-janitor package to use";
+      description = "matrix-synapse-diskspace-janitor package to use";
     };
 
     adminTokenFile = mkOption {
