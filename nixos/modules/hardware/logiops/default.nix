@@ -8,7 +8,7 @@ let
 in
 {
   options.services.logiops = {
-    enable = mkEnableOption (mdDoc "Logiops HID++ configuration");
+    enable = mkEnableOption "Logiops HID++ configuration";
 
     package = mkPackageOption pkgs "logiops" { };
 
@@ -50,7 +50,7 @@ in
           ];
         }];
       };
-      description = mdDoc ''
+      description = ''
         Logid configuration. Refer to
         [the `logiops` wiki](https://github.com/PixlOne/logiops/wiki/Configuration)
         for details on supported values.
