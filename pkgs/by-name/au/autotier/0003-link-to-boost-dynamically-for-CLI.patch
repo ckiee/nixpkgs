@@ -1,0 +1,25 @@
+From cf971bf86cac6f2606ea36dad53a8e4aee3bb967 Mon Sep 17 00:00:00 2001
+From: ckie <git-525ff67@ckie.dev>
+Date: Sat, 26 Oct 2024 20:39:02 +0300
+Subject: [PATCH] link to boost dynamically for CLI
+
+---
+ makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/makefile b/makefile
+index bd3c943..69ba7cf 100644
+--- a/makefile
++++ b/makefile
+@@ -1,7 +1,7 @@
+ FS_TARGET = dist/from_source/autotierfs
+ CLI_TARGET = dist/from_source/autotier
+ FS_LIBS =  -lfuse3 -lpthread -lboost_system -lboost_filesystem -lboost_serialization -lrocksdb -l:lib45d.a
+-CLI_LIBS = -l:libboost_system.a -l:libboost_filesystem.a -lpthread -l:lib45d.a
++CLI_LIBS = -lboost_system -lboost_filesystem -lpthread -l:lib45d.a
+ CC = g++
+ CFLAGS = -g -O2 -Wall -Wextra -Isrc/incl -I/usr/include/fuse3 -D_FILE_OFFSET_BITS=64
+ 
+-- 
+2.46.0
+
