@@ -1,0 +1,87 @@
+From ad832881005f2d3b2ee74d04ab40c4bea6c6689f Mon Sep 17 00:00:00 2001
+From: ckie <git-525ff67@ckie.dev>
+Date: Sat, 26 Oct 2024 20:24:35 +0300
+Subject: [PATCH] remove rocksdb vendored build
+
+---
+ .gitmodules |  3 ---
+ makefile    | 23 +++++------------------
+ 2 files changed, 5 insertions(+), 21 deletions(-)
+ delete mode 100644 .gitmodules
+
+diff --git a/.gitmodules b/.gitmodules
+deleted file mode 100644
+index d3e6e2c..0000000
+--- a/.gitmodules
++++ /dev/null
+@@ -1,3 +0,0 @@
+-[submodule "src/rocksdb"]
+-	path = src/rocksdb
+-	url = https://github.com/facebook/rocksdb.git
+diff --git a/makefile b/makefile
+index ce83a1c..bd3c943 100644
+--- a/makefile
++++ b/makefile
+@@ -1,14 +1,9 @@
+ FS_TARGET = dist/from_source/autotierfs
+ CLI_TARGET = dist/from_source/autotier
+-FS_LIBS =  -lfuse3 -lpthread -lboost_system -lboost_filesystem -lboost_serialization -ldl -lbz2 -llz4 -lzstd -lz -lsnappy -l:lib45d.a
+-ifdef DEB
+-FS_LIBS += -l:liburing.a
+-else
+-FS_LIBS += -luring
+-endif
++FS_LIBS =  -lfuse3 -lpthread -lboost_system -lboost_filesystem -lboost_serialization -lrocksdb -l:lib45d.a
+ CLI_LIBS = -l:libboost_system.a -l:libboost_filesystem.a -lpthread -l:lib45d.a
+ CC = g++
+-CFLAGS = -g -O2 -Wall -Wextra -Isrc/incl -Isrc/rocksdb/include -I/usr/include/fuse3 -D_FILE_OFFSET_BITS=64
++CFLAGS = -g -O2 -Wall -Wextra -Isrc/incl -I/usr/include/fuse3 -D_FILE_OFFSET_BITS=64
+ 
+ FS_LIBS += $(EXTRA_LIBS)
+ CFLAGS += $(EXTRA_CFLAGS)
+@@ -22,8 +17,6 @@ CLI_OBJECT_FILES := $(patsubst src/impl/%.cpp, build/%.o, $(CLI_SOURCE_FILES))
+ SHARED_SOURCE_FILES := $(shell find src/impl/shared -name *.cpp)
+ SHARED_OBJECT_FILES := $(patsubst src/impl/%.cpp, build/%.o, $(SHARED_SOURCE_FILES))
+ 
+-ROCKSDB_STATIC := src/rocksdb/librocksdb.a
+-
+ ifeq ($(PREFIX),)
+ 	PREFIX := /opt/45drives/autotier
+ 	DEFAULT_PREFIX := 1
+@@ -50,20 +43,17 @@ $(FS_OBJECT_FILES) $(CLI_OBJECT_FILES) $(SHARED_OBJECT_FILES): build/%.o : src/i
+ 	@echo "  CC $@"
+ 	@$(CC) $(CFLAGS) -c $(patsubst build/%.o, src/impl/%.cpp, $@) -o $@
+ 
+-$(ROCKSDB_STATIC):
+-	cd src/rocksdb && $(MAKE) USE_RTTI=1 PORTABLE=1 static_lib
+-
+-$(FS_TARGET): $(FS_OBJECT_FILES) $(SHARED_OBJECT_FILES) $(ROCKSDB_STATIC)
++$(FS_TARGET): $(FS_OBJECT_FILES) $(SHARED_OBJECT_FILES)
+ 	@mkdir -p dist/from_source
+ 	@echo "  LD $@"
+-	@$(CC) $(FS_OBJECT_FILES) $(SHARED_OBJECT_FILES) $(ROCKSDB_STATIC) -Wall $(FS_LIBS) -o $@
++	@$(CC) $(FS_OBJECT_FILES) $(SHARED_OBJECT_FILES) -Wall $(FS_LIBS) -o $@
+ 
+ $(CLI_TARGET): $(CLI_OBJECT_FILES) $(SHARED_OBJECT_FILES)
+ 	@mkdir -p dist/from_source
+ 	@echo "  LD $@"
+ 	@$(CC) $(CLI_OBJECT_FILES) $(SHARED_OBJECT_FILES) -Wall $(CLI_LIBS) -o $@
+ 
+-clean: clean-build clean-target clean-rocksdb
++clean: clean-build clean-target
+ 
+ clean-target:
+ 	-rm -rf dist/from_source
+@@ -71,9 +61,6 @@ clean-target:
+ clean-build:
+ 	-rm -rf build
+ 
+-clean-rocksdb:
+-	cd src/rocksdb && make clean
+-
+ clean-tests:
+ 	-rm -rf dist/tests
+ 
+-- 
+2.46.0
+
