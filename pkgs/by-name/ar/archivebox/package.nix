@@ -60,12 +60,12 @@ python.pkgs.buildPythonApplication rec {
   pyproject = true;
 
   src = fetchFromGitHub {
-    owner = "ArchiveBox";
+    owner = "ckiee";
     repo = "ArchiveBox";
     # TODO: Go back to tag when available
     # rev = "refs/tags/v${version}";
-    rev = "b74b0d23b46834eb4310fd4efa71db2c02900314";
-    hash = "sha256-6B/or/8VM4F65m+OhKuFWPCulTBAkz2Et8nwzxTLr5M=";
+    rev = "952bde6cfa7ebc7737459a7a459918a20004f752";
+    hash = "sha256-EiJ4zInWevRWgAY/aomuYmSUkgv8tt/6FdPPBOQeSkM=";
   };
 
   build-system = with python.pkgs; [
