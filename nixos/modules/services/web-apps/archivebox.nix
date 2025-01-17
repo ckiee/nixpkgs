@@ -58,7 +58,10 @@ in
     };
     users.groups.archivebox = { };
 
+    environment.systemPackages = [ cfg.package ];
+
     systemd.services.archivebox = {
+      wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
       serviceConfig = {
         User = "archivebox";
