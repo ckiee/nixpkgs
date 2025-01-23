@@ -14,15 +14,14 @@
   cctools,
   darwin,
   rcodesign,
+  baseline ? false
 }:
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   version = "1.3.11";
   pname = "bun";
 
-  src =
-    finalAttrs.passthru.sources.${stdenvNoCC.hostPlatform.system}
-      or (throw "Unsupported system: ${stdenvNoCC.hostPlatform.system}");
+  src = finalAttrs.passthru.sources.${stdenvNoCC.hostPlatform.system + (lib.optionalString baseline "-baseline")} or (throw "Unsupported system: ${stdenvNoCC.hostPlatform.system}");
 
   sourceRoot =
     {
@@ -94,6 +93,10 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       "x86_64-linux" = fetchurl {
         url = "https://github.com/oven-sh/bun/releases/download/bun-v${finalAttrs.version}/bun-linux-x64.zip";
         hash = "sha256-hhG6k1r4hvBabzh0ChUWAybBXl1dB63vlmEwtEk2B+0=";
+      };
+      "x86_64-linux-baseline" = fetchurl {
+        url = "https://github.com/oven-sh/bun/releases/download/bun-v${finalAttrs.version}/bun-linux-x64-baseline.zip";
+        hash = "sha256-q+NG9jQUVHzfazW3pkmkkMcouT0AYiYVaSORioTA5Zs=";
       };
     };
     updateScript = writeShellScript "update-bun" ''
