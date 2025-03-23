@@ -2,16 +2,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "stfed";
-  version = "unstable-2023-11-01";
+  version = "unstable-2025-01-19";
 
   src = fetchFromGitHub {
     owner = "desbma";
     repo = "stfed";
-    rev = "e533aa4ae55b5c034d56d4aca2a063ad7b357623";
-    hash = "sha256-cH/qQMAMpX9+DyPTTXa4I/vpVtGCSwqJBaC6it7ZI/g=";
+    rev = "39512c6b8f3ff3b402f95efafbb1c8819919fc84";
+    hash = "sha256-N2FTjpw0KJj8t6BMznW9gx7OJxYV6Gn3FBGd+g6nr70=";
   };
 
-  cargoHash = "sha256-4rc8RXAwLGIzSy+yL/303gk4ifyZBhJqGRl1846+w38=";
+  cargoHash = "sha256-8ZZzRbnX11pzAr/o/GbwjdwRS7yXVVglZ8oFb4DXc3g=";
 
   nativeBuildInputs = [ pkg-config ];
 
@@ -22,6 +22,6 @@ rustPlatform.buildRustPackage rec {
       "Syncthing Folder Event Daemon";
     license = licenses.gpl3Only; # unknown
     maintainers = with maintainers; [ ];
-    mainProgram = "jk";
+    mainProgram = "stfed";
   };
 }
