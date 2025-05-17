@@ -7,25 +7,25 @@
   cairo,
   libxkbcommon,
   wayland,
-  withX ? true,
-  libxi,
-  libxinerama,
-  libxft,
-  libxfixes,
-  libxtst,
-  libx11,
-  libxext,
+  withX ? false, /* BORK ; unstable */
+  libXi,
+  libXinerama,
+  libXft,
+  libXfixes,
+  libXtst,
+  libX11,
+  libXext,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "warpd";
-  version = "1.3.5";
+  version = "unstable";
 
   src = fetchFromGitHub {
     owner = "rvaiya";
     repo = "warpd";
-    rev = "v${finalAttrs.version}";
-    hash = "sha256-5B3Ec+R1vF2iI0ennYcsRlnFXJkSns0jVbyAWJA4lTU=";
+    rev = "01650eabf70846deed057a77ada3c0bbb6d97d6e";
+    sha256 = "sha256-kNoaOfDXsiQc2yGVgYK/iS8azP2jgoX1g4v9ZrgLYUI=";
     leaveDotGit = true;
   };
 
@@ -38,13 +38,13 @@ stdenv.mkDerivation (finalAttrs: {
       wayland
     ]
     ++ lib.optionals withX [
-      libxi
-      libxinerama
-      libxft
-      libxfixes
-      libxtst
-      libx11
-      libxext
+      libXi
+      libXinerama
+      libXft
+      libXfixes
+      libXtst
+      libX11
+      libXext
     ];
 
   makeFlags = [
