@@ -6,6 +6,7 @@
   readline,
   autoreconfHook,
   pkg-config,
+  pcsclite,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -38,11 +39,13 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   propagatedBuildInputs = [
+    pcsclite
     libusb-compat-0_1
   ];
 
   configureFlags = [
-    "sysconfdir=/etc"
+    "--sysconfdir=/etc"
+    "--with-drivers=all"
   ];
 
   meta = {
