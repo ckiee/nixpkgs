@@ -41,4 +41,6 @@
   highmon = callPackage ./highmon { };
 
   zncplayback = callPackage ./zncplayback { };
+
+  weechat-vimode = callPackage ./weechat-vimode { };
 }
