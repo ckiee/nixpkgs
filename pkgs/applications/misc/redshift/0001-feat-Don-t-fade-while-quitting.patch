@@ -1,0 +1,37 @@
+From 7fc6417dc2c9c5488ee96b929365cbcba07ed65e Mon Sep 17 00:00:00 2001
+From: ckie <git-525ff67@ckie.dev>
+Date: Tue, 27 Jan 2026 19:29:54 +0200
+Subject: [PATCH] feat: Don't fade while quitting
+
+---
+ src/redshift.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/src/redshift.c b/src/redshift.c
+index 76870d7..600f4d0 100644
+--- a/src/redshift.c
++++ b/src/redshift.c
+@@ -675,7 +675,7 @@ run_continual_mode(const location_provider_t *provider,
+ 
+ 		/* Start fade if the parameter differences are too big to apply
+ 		   instantly. */
+-		if (use_fade) {
++		if (use_fade && !disabled) {
+ 			if ((fade_length == 0 &&
+ 			     color_setting_diff_is_major(
+ 				     &interp,
+@@ -708,8 +708,9 @@ run_continual_mode(const location_provider_t *provider,
+ 			interp = target_interp;
+ 		}
+ 
+-		/* Break loop when done and final fade is over */
+-		if (done && fade_length == 0) break;
++		/* Break loop when done and final fade is over, or if the program
++		   was disabled while an existing fade was running. */
++		if (done && (fade_length == 0 || disabled)) break;
+ 
+ 		if (prev_target_interp.temperature != target_interp.temperature) {
+ 			vlog_notice("%s: %uK", _("Color temperature"), target_interp.temperature);
+-- 
+2.53.0
+

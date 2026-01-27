@@ -42,6 +42,7 @@ let
       version,
       src,
       meta,
+      patches ? [],
     }:
     stdenv.mkDerivation rec {
       inherit
@@ -49,6 +50,7 @@ let
         version
         src
         meta
+        patches
         ;
 
       strictDeps = true;
@@ -165,6 +167,10 @@ rec {
   gammastep = mkRedshift rec {
     pname = "gammastep";
     version = "2.0.11";
+
+    patches = [
+     ./0001-feat-Don-t-fade-while-quitting.patch
+    ];
 
     src = fetchFromGitLab {
       owner = "chinstrap";
