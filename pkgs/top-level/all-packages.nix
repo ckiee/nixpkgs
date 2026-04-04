@@ -10553,6 +10553,7 @@ with pkgs;
   inherit
     (callPackages ../applications/networking/syncthing {
       inherit (darwin) autoSignDarwinBinariesHook;
+      buildGoModule = buildGo125Module;
     })
     syncthing
     syncthing-discovery
